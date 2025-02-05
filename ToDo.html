@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My To-Do List</title>
+    <link rel="stylesheet" href="ToDo.CSS">
+    <script src="ToDo.JS"></script>
+</head>
+<body>
+    <h1><b>My To-Do List</b></h1>
+    <form action="" id="task-form">
+        <input type="text" id="task-name" placeholder="Enter Task..." required>
+        <input type="date" id="task-date" required>
+        <select name="" id="task-priority">
+            <option value="High" >High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+        </select>
+        <button type="submit">Add Task</button>
+    </form>
+
+
+    <table id="task-table">
+        <thead>
+            <tr>
+                <th>Task</th>
+                <th>Due Date</th>
+                <th>Priority</th>
+                <th>Actions</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <!-- data will be inserted from JS -->
+        </tbody>
+
+    </table>
+
+</body>
+</html>

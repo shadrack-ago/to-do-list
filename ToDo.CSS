@@ -1,53 +1,58 @@
 body {
     font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
     text-align: center;
-}
-h1{
-    background-color: beige;
+    padding: 20px;
 }
 
-form {
-    margin: 20px auto;
-    width: 50%;
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-}
-
-input, select, button {
-    padding: 8px;
-    font-size: 16px;
+h1 {
+    color: #333;
 }
 
 table {
-    width: 60%;
-    margin: auto;
+    width: 80%;
+    margin: 20px auto;
     border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
 }
 
 th, td {
-    border: 1px solid black;
-    padding: 10px;
-    text-align: center;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
 }
 
 th {
-    background-color: #f4f4f4;
+    background-color: #007bff;
+    color: white;
 }
 
 button {
+    border: none;
     padding: 5px 10px;
     margin: 2px;
     cursor: pointer;
-    border: none;
+    border-radius: 5px;
 }
 
-.complete {
-    background-color: green;
+button.edit {
+    background-color: #ffc107;
     color: white;
 }
 
-.delete {
-    background-color: red;
+button.complete {
+    background-color: #28a745;
     color: white;
+}
+
+button.delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+button:hover {
+    opacity: 0.8;
 }

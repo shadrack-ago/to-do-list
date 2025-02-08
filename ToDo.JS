@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     let taskTable = document.querySelector("#task-table tbody");
     let taskForm = document.querySelector("#task-form");
+    // adding content search
 
     function loadTasks() {
         let savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
@@ -110,6 +111,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
         taskForm.reset();
     });
+    function filterTasks() {
+        let searchText = searchInput.value.toLowerCase();
+        document.querySelectorAll("#task-table tbody tr").forEach(row => {
+            let taskName = row.cells[0].textContent.toLowerCase();
+            if (taskName.includes(searchText)) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        });
+    }
+
+    searchInput.addEventListener("input", filterTasks);
+
+
+
 
     loadTasks();
 });

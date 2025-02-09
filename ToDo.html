@@ -9,7 +9,7 @@
 </head>
 <body>
     <h1 id="h1"><b>My To-Do List</b></h1>
-    <input type="text" id="search-task" placeholder="Search tasks...">
+
     <form action="" id="task-form">
         <input type="text" id="task-name" placeholder="Enter Task..." required>
         <input type="date" id="task-date" required>
@@ -21,18 +21,18 @@
         <button type="submit">Add Task</button>
     </form>
 
+    <input type="text" id="search-task" placeholder="Search tasks...">
 
     <table id="task-table">
     
         <thead>
             <tr>
-                <th>Task</th>
-                <th>Due Date</th>
-                <th>Priority</th>
-                <th>Actions</th>
-
+              <th>Task</th>
+              <th id="sort-date">Due Date ⬆⬇</th>
+              <th id="sort-priority">Priority ⬆⬇</th>
+              <th>Actions</th>
             </tr>
-        </thead>
+          </thead>
         <tbody>
             <!-- data will be inserted from JS -->
         </tbody>

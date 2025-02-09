@@ -1,7 +1,20 @@
 document.addEventListener("DOMContentLoaded", () => {
+//to make the head click head active 
+document.querySelector("#sort-date").addEventListener("click", () => {
+    sortTasks("dueDate");
+});
+
+document.querySelector("#sort-priority").addEventListener("click", () => {
+    sortTasks("priority");
+});
+
+
+
+    let searchBox = document.querySelector("#search-box");
     let taskTable = document.querySelector("#task-table tbody");
+
     let taskForm = document.querySelector("#task-form");
-    // adding content search
+    
 
     function loadTasks() {
         let savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
@@ -111,22 +124,75 @@ document.addEventListener("DOMContentLoaded", () => {
 
         taskForm.reset();
     });
+// adding content search
+
     function filterTasks() {
-        let searchText = searchInput.value.toLowerCase();
-        document.querySelectorAll("#task-table tbody tr").forEach(row => {
+        let searchText = searchBox.value.toLowerCase();
+        let rows = taskTable.querySelectorAll("tr");
+
+        let hasResults = false;
+
+        rows.forEach(row => {
             let taskName = row.cells[0].textContent.toLowerCase();
-            if (taskName.includes(searchText)) {
+            let dueDate = row.cells[1].textContent.toLowerCase();
+            let priority = row.cells[2].textContent.toLowerCase();
+
+            if (taskName.includes(searchText) || dueDate.includes(searchText) || priority.includes(searchText)) {
                 row.style.display = "";
+                hasResults = true;
             } else {
                 row.style.display = "none";
             }
         });
+
+        // Show "No results found" 
+        let noResultsRow = document.getElementById("no-results");
+        if (!hasResults) {
+            if (!noResultsRow) {
+                noResultsRow = document.createElement("tr");
+                noResultsRow.id = "no-results";
+                noResultsRow.innerHTML = `<td colspan="4" style="text-align: center; color: red;">No results found</td>`;
+                taskTable.appendChild(noResultsRow);
+            }
+        } else {
+            if (noResultsRow) noResultsRow.remove();
+        }
     }
 
-    searchInput.addEventListener("input", filterTasks);
+    searchBox.addEventListener("input", filterTasks);
 
 
+    // Add Sorting Functionality
+    let sortOrder = { dueDate: "asc", priority: "asc" };
 
+function sortTasks(column) {
+    console.log("Sorting by:", column); // ✅ Check if function is triggered
+    let savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+    savedTasks.sort((a, b) => {
+        if (column === "dueDate") {
+            return sortOrder[column] === "asc"
+                ? new Date(a.dueDate) - new Date(b.dueDate)
+                : new Date(b.dueDate) - new Date(a.dueDate);
+        } else if (column === "priority") {
+            let priorityLevels = { High: 3, Medium: 2, Low: 1 };
+            return sortOrder[column] === "asc"
+                ? priorityLevels[a.priority] - priorityLevels[b.priority]
+                : priorityLevels[b.priority] - priorityLevels[a.priority];
+        }
+    });
+
+    sortOrder[column] = sortOrder[column] === "asc" ? "desc" : "asc";
+
+    localStorage.setItem("tasks", JSON.stringify(savedTasks));
+    reloadTable();
+}
+
+function reloadTable() {
+    taskTable.innerHTML = "";  // Clear the table before reloading tasks
+    let savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    savedTasks.forEach(addTaskToTable);
+}
 
     loadTasks();
 });
